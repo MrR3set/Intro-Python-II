@@ -55,27 +55,42 @@ room['treasure'].s_to = room['narrow']
 print("Start game")
 print("-"*50)
 
-
 playerObject = Player("Sarah", room["outside"])
 
 userInput = str
 
-print(f'Greetings {playerObject.name}')
+print(f'Greetings {playerObject.name} lets begin our adventure!')
 
 
 while userInput != "q":
-    print(f"Youre currently {playerObject.currentPos.name}")
+    print(f"Youre currently {playerObject.currentPos.name}\n{playerObject.currentPos.description}")
     userInput = input("Which way should we go?\n>>")
 
     if userInput == "n":
-        playerObject.currentPos = playerObject.currentPos.n_to
+        if playerObject.currentPos.n_to:
+            playerObject.currentPos = playerObject.currentPos.n_to
+        else:
+            print("You cannot move North")
     elif userInput == "w":
-        playerObject.currentPos = playerObject.currentPos.w_to
+        if playerObject.currentPos.w_to:
+            playerObject.currentPos = playerObject.currentPos.w_to
+        else:
+            print("You cannot move West")
     elif userInput == "s":
-        playerObject.currentPos = playerObject.currentPos.s_to
+        if playerObject.currentPos.s_to:
+            playerObject.currentPos = playerObject.currentPos.s_to
+        else:
+            print("You cannot move South")
     elif userInput == "e":
-        playerObject.currentPos = playerObject.currentPos.e_to
+        if playerObject.currentPos.e_to:
+            playerObject.currentPos = playerObject.currentPos.e_to
+        else:
+            print("You cannot move East")
     elif userInput == "h":
         print("Valid options are n s e w")
+    elif userInput == "q":
+        print("Goodbye")
     else:
         print("Invalid command")
+
+print("Goodbye")
