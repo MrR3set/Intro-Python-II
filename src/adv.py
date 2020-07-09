@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -49,3 +50,32 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+print("Start game")
+print("-"*50)
+
+
+playerObject = Player("Sarah", room["outside"])
+
+userInput = str
+
+print(f'Greetings {playerObject.name}')
+
+
+while userInput != "q":
+    print(f"Youre currently {playerObject.currentPos.name}")
+    userInput = input("Which way should we go?\n>>")
+
+    if userInput == "n":
+        playerObject.currentPos = playerObject.currentPos.n_to
+    elif userInput == "w":
+        playerObject.currentPos = playerObject.currentPos.w_to
+    elif userInput == "s":
+        playerObject.currentPos = playerObject.currentPos.s_to
+    elif userInput == "e":
+        playerObject.currentPos = playerObject.currentPos.e_to
+    elif userInput == "h":
+        print("Valid options are n s e w")
+    else:
+        print("Invalid command")
