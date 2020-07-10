@@ -3,6 +3,7 @@
 
 class Room:
     name,description = (str,)*2
+    inventory = ["1","2","3"]
     n_to, s_to, e_to, w_to = ({},)*4
 
     def __init__(self,name,description):

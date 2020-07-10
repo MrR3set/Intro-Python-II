@@ -58,14 +58,11 @@ print("-"*50)
 playerObject = Player("Sarah", room["outside"])
 
 userInput = str
-
 print(f'Greetings {playerObject.name} lets begin our adventure!')
 
 
-while userInput != "q":
-    print(f"Youre currently {playerObject.currentPos.name}\n{playerObject.currentPos.description}")
-    userInput = input("Which way should we go?\n>>")
-
+# 
+def movementHandler():
     if userInput == "n":
         if playerObject.currentPos.n_to:
             playerObject.currentPos = playerObject.currentPos.n_to
@@ -88,9 +85,43 @@ while userInput != "q":
             print("You cannot move East")
     elif userInput == "h":
         print("Valid options are n s e w")
+    elif userInput == "l":
+        print("You can see this items in the room", playerObject.currentPos.inventory)
+    elif userInput == "i":
+        print("You have this items ", playerObject.inventory)
     elif userInput == "q":
         print("Goodbye")
     else:
         print("Invalid command")
 
-print("Goodbye")
+def handleInventory():
+    item = userInput.split(" ")[1] #Item that will be handled
+    if "take" in userInput or "get" in userInput:
+        if item in playerObject.currentPos.inventory:
+            print("Taking ", item)
+            playerObject.currentPos.inventory.remove(item)
+            playerObject.inventory.append(item)
+        else:
+            print(f'{item} is not in the room inventory')
+    elif "drop" in userInput:
+        if item in playerObject.inventory:
+            print("droping ", item)
+            playerObject.inventory.remove(item)
+            playerObject.currentPos.inventory.append(item)
+            
+        else:
+            print(f'{userInput.split(" ")[1]} is not in the player inventory')
+
+
+while userInput != "q":
+    print(f"Youre currently {playerObject.currentPos.name}\n{playerObject.currentPos.description}")
+    userInput = input("What should we do?\n>>")
+
+
+    if len(userInput.split(" ")) == 2:
+        handleInventory()
+    else:
+        movementHandler()
+
+
+
